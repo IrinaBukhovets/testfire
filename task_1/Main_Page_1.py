@@ -9,10 +9,11 @@ class TestfireLocators:
     Locator_button_login = (By.XPATH,"//[@input[@value='Login']")
     Locator_button_GO = (By.XPATH,"//input[@value='   GO   ']")
 
-class LoginHelper(Browser):
+class LoginHelper():
+    Locator_Username = (By.CSS_SELECTOR, "#uid")
+
     def enter_word (self,word):
-        enter_word_username = self.find_element(TestfireLocators.Locator_Username)
-        enter_word_username.click()
+        enter_word_username = self.find_element(self.Locator_Username, time=5)
         enter_word_username.send_keys(word)
         return enter_word_username
 

@@ -17,14 +17,11 @@ class BasePage:
     def __init__(self, locator, driver):
         self.locator = locator
         self.driver = driver
-        locator_sign_in = (By.ID, "LoginLink")
+
     def unique_find_element(self, browser):    
-        browser.unique_find_element()
-       #wait = WebDriverWait(browser,5)
-       #unique_find_element = EC.presence_of_all_elements_located(LOCATOR)
-       #unique_find_element = wait(EC.presence_of_all_elements_located(LOCATOR))       
-    def enter_word(self, word):
-        self.send_keys(word)
+        browser.find_element(self.locator)        
+    def enter_word(self, browser, word):
+        browser.find_element(self.locator).sent_keys(word)
 
 class LandingHelper():
 
@@ -36,24 +33,24 @@ class LandingHelper():
 
         return bool(button_signin)
     
-class LoginHelper(BasePage, Browser):
+class LoginHelper(BasePage):
 
-    locator_sign_in = (By.CSS_SELECTOR, "#uid")
+    locator_username = (By.CSS_SELECTOR, "#uid")
+    licator_password = (By.ID,"passw")
 
     def find_unique_element(self, browser):
 
-        browser.find_element(self.locator_sign_in)
+        browser.find_element(self.locator_username)
   
     def enter_word_1(self, word):
-        search_field_username = self.find_unique_elemen(self.locator_sign_in)
-        search_field_username.click()
-        search_field_username.send_keys(word)
+        search_field_username = self.unique_find_element(self.locator_username)
+        search_field_username.enter_word 
         return search_field_username  #search_field_username = self.find_element(TestfireLocators.Locator_Username)
 
 
     def enter_word_2(self,word):
 
-        search_field_password = self.find_element(TestfireLocators.Locator_Password)
+        search_field_password = self.unique_find_element(self.licator_password)
 
         search_field_password.click()
 
