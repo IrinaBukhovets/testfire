@@ -5,7 +5,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 class TestfireLocators:
-
+    
     Locator_sign_in = (By.ID, "LoginLink")
     Locator_Username = (By.ID,"uid")
     Locator_Password = (By.ID,"passw")
@@ -14,62 +14,73 @@ class TestfireLocators:
 
 class BasePage:
 
-    def __init__(self, locator, driver):
-        self.locator = locator
-        self.driver = driver
+    def __init__(self, locator):
+        self.locator = locator   
 
-    def unique_find_element(self, browser):    
+    def unique_find_element(self, browser):
+        browser = Browser()   
         browser.find_element(self.locator)        
-    def enter_word(self, browser, word):
-        browser.find_element(self.locator).sent_keys(word)
 
-class LandingHelper():
+    def enter_word(self, word):
+        Browser().find_element(self.locator).send_keys(word)
 
-    Locator_sign_in = (By.ID, "LoginLink")
+    def click_on_the_button(self, browser):
+        browser = Browser()   
+        browser.find_element(self.locator).click()
 
-    def button_signin_is_findable(self,browser):
+    def element_is_displayed(self,browser):
+        browser = Browser()
+        browser.find_element(self.locator).is_displayed()
 
-        button_signin = browser.find_element(self.Locator_sign_in)
-
-        return bool(button_signin)
+class LandingHelper(BasePage):
     
-class LoginHelper(BasePage):
+    locator_sign_in = (By.ID, "LoginLink")
+
+    def __init__(self):
+        super().__init__(locator=self.locator_sign_in)
+    
+    def button_signin_click(self):
+       self.click_on_the_button(browser = Browser())
+
+class LoginHelper1(BasePage):
 
     locator_username = (By.CSS_SELECTOR, "#uid")
+
+    def __init__(self):
+        super().__init__(locator=self.locator_username)
+
+    def enter_login(self, login):
+        self.enter_word(word=login)
+
+class LoginHelper2(BasePage):
+
     licator_password = (By.ID,"passw")
 
-    def find_unique_element(self, browser):
+    def __init__(self):
+        super().__init__(locator=self.licator_password)    
 
-        browser.find_element(self.locator_username)
-  
-    def enter_word_1(self, word):
-        search_field_username = self.unique_find_element(self.locator_username)
-        search_field_username.enter_word 
-        return search_field_username  #search_field_username = self.find_element(TestfireLocators.Locator_Username)
+    def enter_password(self, password):
+        self.enter_word(word=password)
 
+class LoginHelper3(BasePage):
 
-    def enter_word_2(self,word):
+    locator_button_login = (By.XPATH, "//input[@value='Login']")
 
-        search_field_password = self.unique_find_element(self.licator_password)
+    def __init__(self):
+        super().__init__(locator=self.locator_button_login)
 
-        search_field_password.click()
+    def click_on_the_button_login(self):
+        self.click_on_the_button(browser=Browser())
 
-        search_field_password.send_keys(word)
+    def button_login_on_the_page(self):
+        self.element_is_displayed(browser=Browser())
 
-        return search_field_password
+class UserHelper (BasePage):
 
-    def click_on_the_search_button(self):
+    locator_button_GO = (By.XPATH,"//input[@value='   GO   ']")
 
-        return self.find_element(TestfireLocators.Locator_button_login,time=2).click()
+    def __init__(self):
+        super().__init__(locator=self.locator_button_GO)
 
-
-
-class UserHelper (Browser):
-
-    
-
-    def find_element(self):
-
-       search_field = self.find_element(TestfireLocators.Locator_button_GO)
-
-       search_field.is_displayed()
+    def button_GO_on_the_page(self):
+        self.element_is_displayed(browser=Browser())
