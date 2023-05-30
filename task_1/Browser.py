@@ -15,16 +15,16 @@ class Browser(metaclass=Singletone):
     def get_driver(self):
         return self.webdriver["edge"]
     
-    def find_element(self,locator,time=5): #ищет один кликабельный элемент и возвращает его  
+    def find_element(self,locator,time=5):   
         return WebDriverWait(self.get_driver(),time).until(EC.presence_of_element_located(locator), message=f"Can't find element by locator {locator}")
     
-    def go_back(self):#нажатие на кнопку НАЗАД в браузере
+    def go_back(self):
         self.get_driver().back()
 
-    def refresh(self):#обновление страницы
+    def refresh(self):
         self.get_driver().refresh()
 
-    def go_to_site(self, url):#переходит по базовому url
+    def go_to_site(self, url):
         self.get_driver().get(url)
 
     def quit(self):
